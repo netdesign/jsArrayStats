@@ -19,6 +19,13 @@
 
 function arrayStats(array){
 				this.array = array;
+				if(typeof(array) == undefined){
+					this.array = undefined;
+					this.length = undefined;
+				} else {
+					this.array = array;
+					thia.length = array.length;
+					}
 				this.length = array.length;
 				this.mean = mean;
 				this.geometricMean = geometricMean;
