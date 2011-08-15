@@ -24,7 +24,7 @@ function arrayStats(array){
 					this.length = undefined;
 				} else {
 					this.array = array;
-					thia.length = array.length;
+					this.length = array.length;
 					}
 				this.length = array.length;
 				this.mean = mean;
