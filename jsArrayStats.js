@@ -26,7 +26,7 @@ function arrayStats(array){
 					this.array = array;
 					this.length = array.length;
 					}
-				this.length = array.length;
+				//this.length = array.length;
 				this.mean = mean;
 				this.geometricMean = geometricMean;
 				this.harmonicMean = harmonicMean;
