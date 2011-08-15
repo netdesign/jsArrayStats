@@ -18,15 +18,12 @@
 */
 
 function arrayStats(array){
-				this.array = array;
-				if(typeof(array) == undefined){
-					this.array = undefined;
-					this.length = undefined;
-				} else {
+				if(typeof(array) != "undefined"){
 					this.array = array;
 					this.length = array.length;
+				} else {					
+					this.length = 0;
 					}
-				//this.length = array.length;
 				this.mean = mean;
 				this.geometricMean = geometricMean;
 				this.harmonicMean = harmonicMean;
