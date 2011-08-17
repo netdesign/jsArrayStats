@@ -35,6 +35,9 @@ function arrayStats(array){
 				this.mean = mean;
 				this.geometricMean = geometricMean;
 				this.harmonicMean = harmonicMean;
+
+				this.maxValue = maxValue;
+
 				this.precision = 2;
 				
 				this.setArray = setArray;
@@ -83,6 +86,13 @@ function arrayStats(array){
 					return((this.length/thisTotal).toFixed(this.precision));
 				};
 
+
+				function maxValue(){
+					var out = new Object();
+					out.value = Math.max.apply( Math, obj.array );			
+					out.index = array.indexOf(out.value);
+					return out;
+				}
 
 				function objMean(){
 					var thisTotal = 0;
