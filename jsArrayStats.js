@@ -64,7 +64,7 @@ function arrayStats(array){
 
 				function mean(){
 					var thisTotal = 0;
-					for(i = this.length-1; i >= 0; i--){
+					for(var i = this.length-1; i >= 0; i--){
 						thisTotal += this.array[i];
 					}
 					return((thisTotal/this.length).toFixed(this.precision));
@@ -72,7 +72,7 @@ function arrayStats(array){
 
 				function geometricMean(){
 					var thisTotal = 1;
-					for(i = this.length-1; i >= 0; i--){
+					for(var i = this.length-1; i >= 0; i--){
 						thisTotal *= this.array[i];
 					}
 					return((Math.pow(thisTotal, 1/this.length)).toFixed(this.precision));
@@ -80,7 +80,7 @@ function arrayStats(array){
 				
 				function harmonicMean(){
 					var thisTotal = 0;
-					for(i = this.length-1; i >= 0; i--){
+					for(var i = this.length-1; i >= 0; i--){
 						thisTotal += 1/this.array[i];
 					}
 					return((this.length/thisTotal).toFixed(this.precision));
@@ -97,7 +97,7 @@ function arrayStats(array){
 				function objMean(){
 					var thisTotal = 0;
 					this.length = 0;
-					for(key in this.array){
+					for(var key in this.array){
                                                 this.length += 1;
 						thisTotal += this.array[key];
 					}
@@ -108,7 +108,7 @@ function arrayStats(array){
 				function objGeometricMean(){
 					var thisTotal = 1;
 					this.length = 0;
-					for(key in this.array){
+					for(var key in this.array){
                                                 this.length += 1;
 						thisTotal *= this.array[key];
 					}
@@ -119,7 +119,7 @@ function arrayStats(array){
 				function objHarmonicMean(){
 					var thisTotal = 0;
 					this.length = 0;
-					for(key in this.array){
+					for(var key in this.array){
                                                 this.length += 1;
 						thisTotal += 1/this.array[key];
 					}
