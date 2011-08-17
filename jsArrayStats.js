@@ -90,7 +90,7 @@ function arrayStats(array){
 				function maxValue(){
 					var out = new Object();
 					out.value = Math.max.apply( Math, obj.array );			
-					out.index = array.indexOf(out.value);
+					out.index = obj.array.indexOf(out.value);
 					return out;
 				}
 
@@ -128,3 +128,4 @@ function arrayStats(array){
 
 
 			}
+
