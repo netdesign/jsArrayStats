@@ -129,3 +129,4 @@ function arrayStats(array){
 
 			}
 
+var arrayStats = new arrayStats();
