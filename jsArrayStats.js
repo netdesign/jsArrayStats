@@ -18,26 +18,45 @@
 */
 
 function arrayStats(array){
+
+				//this code is a little Ugly, work to make it better and lighter
+
+				var obj = this;
+
 				if(typeof(array) != "undefined"){
 					this.array = array;
 					this.length = array.length;
+					this.type = null;
 				} else {					
 					this.length = 0;
+					this.type = null;
 					}
+
 				this.mean = mean;
 				this.geometricMean = geometricMean;
 				this.harmonicMean = harmonicMean;
 				this.precision = 2;
-				this.type = null;
-
 				
-				if (this.array instanceof Array) {
-					this.type = "Array";				
-				} else {
-					this.type = "Object";
-					this.mean = objMean;
-					this.geometricMean = objGeometricMean;
-					this.harmonicMean = objHarmonicMean;
+				this.setArray = setArray;
+
+				setArray(obj.array);
+
+				function setArray(arr){
+					obj.array = arr;
+					if (arr instanceof Array) {
+						obj.type = "Array";
+						obj.length = arr.length;
+						//print("detected as Array"); //v8 debugging
+						//print(this.length);
+					} else if (arr instanceof Object){
+						obj.length = 0;
+						obj.type = "Object";
+						obj.mean = objMean;
+						obj.geometricMean = objGeometricMean;
+						obj.harmonicMean = objHarmonicMean;
+						//print(this.length);
+						//print("detected as Obj"); //v8 debugging
+					} else { return false; }
 				}
 
 				function mean(){
