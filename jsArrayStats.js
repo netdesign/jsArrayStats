@@ -17,116 +17,62 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-function arrayStats(array){
-
-				//this code is a little Ugly, work to make it better and lighter
-
-				var obj = this;
-
-				if(typeof(array) != "undefined"){
-					this.array = array;
-					this.length = array.length;
-					this.type = null;
-				} else {					
-					this.length = 0;
-					this.type = null;
-					}
-
-				this.mean = mean;
-				this.geometricMean = geometricMean;
-				this.harmonicMean = harmonicMean;
-
-				this.maxValue = maxValue;
-
-				this.precision = 2;
-				
-				this.setArray = setArray;
-
-				setArray(obj.array);
-
-				function setArray(arr){
-					obj.array = arr;
-					if (arr instanceof Array) {
-						obj.type = "Array";
-						obj.length = arr.length;
-						//print("detected as Array"); //v8 debugging
-						//print(this.length);
-					} else if (arr instanceof Object){
-						obj.length = 0;
-						obj.type = "Object";
-						obj.mean = objMean;
-						obj.geometricMean = objGeometricMean;
-						obj.harmonicMean = objHarmonicMean;
-						//print(this.length);
-						//print("detected as Obj"); //v8 debugging
-					} else { return false; }
-				}
-
-				function mean(){
-					var thisTotal = 0;
-					for(var i = this.length-1; i >= 0; i--){
-						thisTotal += this.array[i];
-					}
-					return((thisTotal/this.length).toFixed(this.precision));
-				};
-
-				function geometricMean(){
-					var thisTotal = 1;
-					for(var i = this.length-1; i >= 0; i--){
-						thisTotal *= this.array[i];
-					}
-					return((Math.pow(thisTotal, 1/this.length)).toFixed(this.precision));
-				};
-				
-				function harmonicMean(){
-					var thisTotal = 0;
-					for(var i = this.length-1; i >= 0; i--){
-						thisTotal += 1/this.array[i];
-					}
-					return((this.length/thisTotal).toFixed(this.precision));
-				};
-
-
-				function maxValue(){
-					var out = new Object();
-					out.value = Math.max.apply( Math, obj.array );			
-					out.index = obj.array.indexOf(out.value);
-					return out;
-				}
-
-				function objMean(){
-					var thisTotal = 0;
-					this.length = 0;
-					for(var key in this.array){
-                                                this.length += 1;
-						thisTotal += this.array[key];
-					}
-					return((thisTotal/this.length).toFixed(this.precision));
-				};
-
-
-				function objGeometricMean(){
-					var thisTotal = 1;
-					this.length = 0;
-					for(var key in this.array){
-                                                this.length += 1;
-						thisTotal *= this.array[key];
-					}
-					return((Math.pow(thisTotal, 1/this.length)).toFixed(this.precision));
-				};
-
-
-				function objHarmonicMean(){
-					var thisTotal = 0;
-					this.length = 0;
-					for(var key in this.array){
-                                                this.length += 1;
-						thisTotal += 1/this.array[key];
-					}
-					return((this.length/thisTotal).toFixed(this.precision));
-				};
-
-
+var ArrayStats = (function () {
+	function ArrayStats(array, precision) {
+		if (array) {
+			if (array instanceof Array) {
+				this.array = array;
+			} else if (array instanceof Object) {
+				this.array = hashToArray(array);
 			}
 
-var arrayStats = new arrayStats();
+			this.type = null;
+			this.precision = precision || 2;
+		} else {
+			return null;
+		}
+	}
+
+	function hashToArray(obj) {
+		var keys = Object.keys(obj),
+			ar = [];
+
+		for (var i = 0; i < keys.length; i++) {
+			ar[i] = obj[keys[i]];
+		}
+
+		return ar;
+	}
+
+	var proto = ArrayStats.prototype;
+
+	proto.mean = function mean() {
+		var total = this.array.reduce(function (prev, val) {
+			return prev + val;
+		}, 0);
+		return (total / this.array.length).toFixed(this.precision);
+	};
+
+	proto.geometricMean = function geometricMean() {
+		var total = this.array.reduce(function (prev, val) {
+			return prev * val;
+		}, 1);
+		return Math.pow(total, 1 / this.length).toFixed(this.precision);
+	};
+	
+	proto.harmonicMean = function harmonicMean() {
+		var total = this.array.reduce(function (prev, val) {
+			return prev + (1 / val);
+		}, 0);
+		return (this.array.length / total).toFixed(this.precision);
+	};
+
+	proto.maxValue = function maxValue() {
+		var out = {};
+		out.value = Math.max.apply(Math, this.array);
+		out.index = this.array.indexOf(out.value);
+		return out;
+	};
+
+	return ArrayStats;
+}());
