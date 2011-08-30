@@ -34,14 +34,9 @@ var ArrayStats = (function () {
 	}
 
 	function hashToArray(obj) {
-		var keys = Object.keys(obj),
-			ar = [];
-
-		for (var i = 0; i < keys.length; i++) {
-			ar[i] = obj[keys[i]];
-		}
-
-		return ar;
+		return Object.keys(obj).map(function (key) {
+			return obj[key];
+		});
 	}
 
 	var proto = ArrayStats.prototype;
